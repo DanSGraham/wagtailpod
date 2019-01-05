@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-podcastpage{% endblock %}
+
+{% block content %}
+    <div class="content">
+            <div class="post">
+                <table class="post-table">
+                    <tr>
+                        <td><h2 class="post-title">{{ page.title }}</h2></td>
+                    </tr>
+                    <tr>
+                        <td><h3 class="post-date">{{ page.date|date:"M d, Y" }}</h2></td>
+                    </tr>
+                    <tr>
+                        <td><p class="post-intro">{{ page.description|richtext }} </p></td>
+                    </tr>
+                    <tr>
+                        <td class="audio-row">
+                        <audio controls>
+                        <source src="{{ page.audio.file.url }}" type="audio/mpeg">
+                        Unsupported Audio
+                        </audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        {% for tag in page.tags.all %}
+                            <a href="{% pageurl page %}?tag={{ tag }}" class="tag">{{ tag }}</a>
+                        {% endfor %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+{% endblock %}
